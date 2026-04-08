@@ -18,9 +18,9 @@ MAIN_SAVE_FOLDER = r"C:\Users\Apurv\Desktop\Factory_Code\Data_Logs"
 
 # --- THE FACTORY ZONES (MULTI-GATEWAY SYSTEM) ---
 GENERATING_UNITS = {
-    "Unit_1": {"ids": list(range(1, 26)),   "ip": '192.168.25.201'},
-    "Unit_2": {"ids": list(range(26, 67)),  "ip": '192.168.25.202'},
-    "Unit_3": {"ids": list(range(67, 108)), "ip": '192.168.25.203'} 
+    "Unit_1": {"ids": list(range(1, 26)),   "ip": '192.168.1.101'},
+    "Unit_2": {"ids": list(range(26, 67)),  "ip": '192.168.1.102'},
+    "Unit_3": {"ids": list(range(67, 108)), "ip": '192.168.1.103'} 
 }
 
 # --- THE CLEAN ROW-BY-ROW HEADERS (NOT TRANSPOSED) ---
