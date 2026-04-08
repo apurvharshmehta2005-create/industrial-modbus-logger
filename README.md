@@ -20,7 +20,7 @@ The system generates clean, row-based CSV files perfect for Excel filtering and 
 ![Sample Output 2](sample_output_2.png.png)
 
 # Technology Stack
-* Language: Python 3.x
+* Language: Python 3.14.3
 * Core Libraries: `socket`, `struct` (for hexadecimal/byte translation), `csv`, `os`, `datetime`
 * Protocol: Modbus TCP/IP
 
