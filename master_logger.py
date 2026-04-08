@@ -1,29 +1,26 @@
-# ==========================================
-# --- STEP 1: IMPORT REQUIRED LIBRARIES ---
-# ==========================================
+
+# STEP 1: IMPORT REQUIRED LIBRARIES
 import socket                  
 import struct                  
 import time                    
 import csv                     
 import os                      
-from datetime import datetime  
+from datetime import datetime 
 
-# ==========================================
-# --- STEP 2: NETWORK & FOLDER SETTINGS ---
-# ==========================================
+# STEP 2: NETWORK & FOLDER SETTINGS 
 TCP_PORT = 20108               
 
-# --- NEW SAVE LOCATION DIRECTLY IN FACTORY_CODE FOLDER ---
+# NEW SAVE LOCATION DIRECTLY IN FACTORY_CODE FOLDER 
 MAIN_SAVE_FOLDER = r"C:\Users\Apurv\Desktop\Factory_Code\Data_Logs"
 
-# --- THE FACTORY ZONES (MULTI-GATEWAY SYSTEM) ---
+# THE FACTORY ZONES (MULTI-GATEWAY SYSTEM) 
 GENERATING_UNITS = {
     "Unit_1": {"ids": list(range(1, 26)),   "ip": '192.168.1.101'},
     "Unit_2": {"ids": list(range(26, 67)),  "ip": '192.168.1.102'},
     "Unit_3": {"ids": list(range(67, 108)), "ip": '192.168.1.103'} 
 }
 
-# --- THE CLEAN ROW-BY-ROW HEADERS (NOT TRANSPOSED) ---
+# THE CLEAN ROW-BY-ROW HEADERS (NOT TRANSPOSED)
 CSV_HEADERS = [
     'Date', 'Time', 'Slave ID', 'Meter Brand', 'Energy (kWh)', 'Power (kW)', 
     'Avg VLL (V)', 'Avg VLN (V)', 'Avg Current (A)', 
@@ -31,9 +28,7 @@ CSV_HEADERS = [
 ]
 DAILY_HEADERS = ['Date', 'Time', 'Slave ID', 'Energy (kWh)', 'Daily energy consumption']
 
-# ==========================================
-# --- STEP 3: METER RULEBOOKS (SWAPPED) ---
-# ==========================================
+# STEP 3: METER RULEBOOKS (SWAPPED) 
 TRINITY_REGISTERS = {
     'Energy (kWh)': (3029, 100.0, 3, 'long'), 'Power (kW)': (3001, 100.0, 3, 'long'),
     'Avg VLL (V)': (3007, 100.0, 3, 'long'), 'Avg VLN (V)': (3009, 100.0, 3, 'long'), 
@@ -54,10 +49,7 @@ RISHABH_REGISTERS = {
     'Avg Current (A)': (22, 1.0, 4, 'float'), 'Phase R Current (IR)': (16, 1.0, 4, 'float'),
     'Phase Y Current (Iy)': (18, 1.0, 4, 'float'), 'Phase B Current (Ib)': (20, 1.0, 4, 'float')
 }
-
-# ==========================================
-# --- STEP 4: PREPARE BASE FOLDERS & MEMORY ---
-# ==========================================
+# STEP 4: PREPARE BASE FOLDERS & MEMORY 
 print(f"Setting up base folder: {MAIN_SAVE_FOLDER}")
 if not os.path.exists(MAIN_SAVE_FOLDER):
     os.makedirs(MAIN_SAVE_FOLDER)
@@ -100,8 +92,7 @@ for unit_name in GENERATING_UNITS.keys():
         except Exception as e:
             print(f"Notice: Could not load history for {unit_name}: {e}")
 
-# ==========================================
-# --- STEP 5: PURE ETHERNET TCP ENGINE ---
+# STEP 5: PURE ETHERNET TCP ENGINE 
 # ==========================================
 def crc16(data: bytes):
     crc = 0xFFFF
@@ -162,7 +153,7 @@ def detect_meter_type(sock, sid):
     except: pass
     return None
 
-# --- SMART SOCKET MANAGER ---
+# SMART SOCKET MANAGER 
 active_sockets = {}
 
 def connect_to_usr(target_ip):
@@ -176,9 +167,7 @@ def get_active_socket(target_ip):
         active_sockets[target_ip] = connect_to_usr(target_ip)
     return active_sockets[target_ip]
 
-# ==========================================
-# --- STEP 6: THE INFINITE LOGGING LOOP ---
-# ==========================================
+# STEP 6: THE INFINITE LOGGING LOOP 
 # Removed "Transposed Monthly Scanner" print
 print(f"\n--- System Armed! Initializing Classic Row-Based Scanner ---")
 
@@ -273,7 +262,7 @@ while True:
                 print(f"     [ERROR] Connection lost on ID {sid}. Blacklisting for 60 seconds.")
                 offline_memory[sid] = time.time()
 
-        # --- CLASSIC BUFFER SAVING ENGINE (NOT PIVOTED) ---
+        # CLASSIC BUFFER SAVING ENGINE (NOT PIVOTED) 
         try:
             if len(unit_data_buffer) > 0:
                 with open(main_file, mode='a', newline='') as f:
