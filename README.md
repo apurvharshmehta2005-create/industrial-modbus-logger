@@ -1,3 +1,4 @@
+<img width="1490" height="463" alt="Screenshot 2026-04-17 103842" src="https://github.com/user-attachments/assets/f5d8f72c-1932-4ee0-921b-51000e4bb1fb" />
 # Industrial Modbus TCP Data Logger⚡
 
 An automated, multi-threaded Python data logging system designed to monitor factory energy consumption across multiple network gateways. 
